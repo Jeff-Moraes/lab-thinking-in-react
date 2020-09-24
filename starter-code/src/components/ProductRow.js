@@ -1,28 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 
-class ProductRow extends Component{
+const ProductRow = (props) => {
+  const { name, price, stocked } = props;
+  return (
+    <tr>
+      <td style={{ color: stocked ? 'black' : 'red' }}>
+        <h2>{name}</h2>
+      </td>
+      <td>
+        <h2>{price}</h2>
+      </td>
+    </tr>
+  );
+};
 
-    constructor(props) {
-        super(props);
-    }
-
-    render() {
-        
-        const {name, price, stocked} = this.props;
-        console.log(name);
-        return(
-            <>
-                <tr>
-                    <td style={{color: (stocked ? 'black' : 'red')}}>
-                       <h2>{name}</h2> 
-                    </td>
-                    <td>
-                        <h2>{price}</h2>
-                    </td>
-                </tr>
-            </>
-        );
-    }
-}
-
-export default ProductRow; 
+export default ProductRow;

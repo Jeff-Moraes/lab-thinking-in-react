@@ -2,72 +2,45 @@ import React, { Component } from 'react';
 import SearchBar from './SearchBar';
 import ProductTable from './ProductTable';
 
-class FilterableProductTable extends Component{
+class FilterableProductTable extends Component {
+  state = {
+    products: this.props.products.data,
+    searchState: '',
+    toggleStock: false,
+  };
 
-    constructor(props) {
-        super(props);
+  searchForm = (search) => {
+    this.setState({
+      searchState: search,
+    });
+  };
 
-        this.state = {
-            products: props.products,
-            searchState: "",
-            toogleStock: false,
-        }
+  checkedStock = () => {
+    this.setState({
+      toggleStock: !this.state.toggleStock,
+    });
+  };
 
-        this.searchForm = this.searchForm.bind(this);
-        this.checkedStock = this.checkedStock.bind(this);
-    }
+  render() {
+    const { products, searchState, toggleStock } = this.state;
 
-    searchForm (search) {
-        console.log(search);
+    return (
+      <div>
+        <SearchBar
+          searchForm={this.searchForm}
+          checkedStock={this.checkedStock}
+          checkBox={toggleStock}
+          searchState={searchState}
+        />
 
-        this.setState({
-          searchState: search.toLowerCase(),
-        })
-    }
-
-    checkedStock(checkbox) {
-        
-        console.log(checkbox);
-
-        this.setState({
-            toogleStock: checkbox,
-        })
-    }
-
-    render() {
-
-        const { products, searchState, toogleStock } = this.state;
-        console.log("PRODUCTS FILTER", products.data[0].name);
-        
-        return(
-            <div>
-                <SearchBar searchForm={this.searchForm} checkedStock={this.checkedStock}/>
-                
-
-                    <table>
-                    <thead>
-                        <tr>
-                            <th>NAME</th>
-                            <th>PRICE</th>
-                        </tr>
-                    </thead>
-                        <tbody>
-                        {
-                            products.data.filter(item => toogleStock ? 
-                            item.name.toLowerCase().includes(searchState) && item.stocked 
-                            : item.name.toLowerCase().includes(searchState))
-                            .map((products, idx) => 
-                                 <ProductTable key={idx} name={products.name} price={products.price} stocked={products.stocked}/>
-  
-                            )
-                        }
-                        </tbody>
-                    
-                    </table>
-                
-            </div>
-        );
-    }
+        <ProductTable
+          products={products}
+          searchState={searchState}
+          toggleStock={toggleStock}
+        />
+      </div>
+    );
+  }
 }
 
-export default FilterableProductTable; 
+export default FilterableProductTable;
