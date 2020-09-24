@@ -29,7 +29,7 @@ class FilterableProductTable extends Component {
         <SearchBar
           searchForm={this.searchForm}
           checkedStock={this.checkedStock}
-          checkBox={toggleStock}
+          toggleStock={toggleStock}
           searchState={searchState}
         />
 

@@ -3,7 +3,7 @@ import ProductRow from './ProductRow';
 
 const ProductTable = (props) => {
   const filteredProducts = [...props.products].filter((item) => {
-    if (props.toogleStock) {
+    if (props.toggleStock) {
       return (
         item.name.toLowerCase().includes(props.searchState) && item.stocked
       );
